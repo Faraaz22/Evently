@@ -7,9 +7,8 @@ import { register } from "@/store/authSlice";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
-export default function RegisterPage({ className }: { className?: string }) {
+export default function RegisterPage() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function RegisterPage({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-background", className)}>
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-background">
       <div className="w-full max-w-md space-y-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-md p-6 sm:p-8">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
