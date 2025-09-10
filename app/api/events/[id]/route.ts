@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Event from "@/models/Events";
 
-type Params = { params: { id: string } };
-
 // GET /api/events/[id]
-export async function GET(_: NextRequest, { params }: Params) {
+export async function GET(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
     await connectDB();
 
-    const event = await Event.findById(params.id);
+    const event = await Event.findById(context.params.id);
 
     if (!event) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -26,13 +27,16 @@ export async function GET(_: NextRequest, { params }: Params) {
 }
 
 // PUT /api/events/[id]
-export async function PUT(req: NextRequest, { params }: Params) {
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
     await connectDB();
 
     const data = await req.json();
 
-    const updated = await Event.findByIdAndUpdate(params.id, data, { new: true });
+    const updated = await Event.findByIdAndUpdate(context.params.id, data, { new: true });
 
     if (!updated) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -49,15 +53,18 @@ export async function PUT(req: NextRequest, { params }: Params) {
 }
 
 // DELETE /api/events/[id]
-export async function DELETE(_: NextRequest, { params }: Params) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
     await connectDB();
 
-    await Event.findByIdAndDelete(params.id);
+    await Event.findByIdAndDelete(context.params.id);
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error(" DELETE error:", error);
+    console.error("❌ DELETE error:", error);
 
     const message = error instanceof Error ? error.message : "Failed to delete event";
 
