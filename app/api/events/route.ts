@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const body = await req.json();
-    console.log("📦 Incoming POST body:", body);
+    console.log("Incoming POST body:", body);
 
     const event = await Event.create(body);
 

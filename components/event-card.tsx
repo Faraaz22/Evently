@@ -16,7 +16,6 @@ type EventCardProps = {
   title: string
   date: string
   price: string
-  stripeLink?: string
 }
 
 export function EventCard({ id, image, title, date, price }: EventCardProps) {
@@ -24,7 +23,12 @@ export function EventCard({ id, image, title, date, price }: EventCardProps) {
   const [quantity, setQuantity] = useState(1)
   const { tickets } = useAppSelector((state) => state.ticket)
 
-  const bookedTicket = tickets.find((t) => t.eventId === id || t.eventId?._id === id)
+const bookedTicket = tickets.find((t) => {
+  if (typeof t.eventId === "string") return t.eventId === id;
+  if (typeof t.eventId === "object" && "_id" in t.eventId) return t.eventId._id === id;
+  return false;
+});
+
   const bookedQty = bookedTicket ? bookedTicket.quantity : 0
   const [booked, setBooked] = useState(false)
 

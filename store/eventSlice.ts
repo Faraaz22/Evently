@@ -9,6 +9,7 @@ export interface Event {
   location: string
   image?: string
   price: Number
+
 }
 
 interface EventState {

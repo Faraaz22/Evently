@@ -9,6 +9,7 @@ const EventSchema = new Schema(
     location: { type: String, required: true },
     price: { type: Number, required: true },
     image: { type: String },
+
   },
   { timestamps: true }
 );

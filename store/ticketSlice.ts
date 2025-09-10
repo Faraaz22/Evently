@@ -2,10 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/lib/api";
 import { RootState } from "./index"
 
+interface Event {
+  _id: string;
+  title: string;
+  description: string;
+  date: string;
+  location: string;
+  price: number;
+  image?: string;
+}
+
 export interface Ticket {
   _id: string;
   userId: string;
-  eventId: any;
+  eventId: Event | string;
   quantity: number;
   price: number;
   bookedAt: string;

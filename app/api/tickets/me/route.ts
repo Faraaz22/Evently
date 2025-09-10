@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ tickets });
   } catch (error) {
-    console.error("❌ Fetch tickets error:", error);
+    console.error("Fetch tickets error:", error);
 
     const message = error instanceof Error ? error.message : "Internal server error";
 

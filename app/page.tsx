@@ -50,7 +50,9 @@ export default function Home() {
             className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-md p-4 shadow-sm hover:shadow-md transition"
           >
             <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
-              {ticket.eventId?.title || "Unknown Event"}
+              {typeof ticket.eventId === "object" && "title" in ticket.eventId
+    ? ticket.eventId.title
+    : "Unknown Event"}
             </h3>
 
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
