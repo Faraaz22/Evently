@@ -1,17 +1,23 @@
-"use client"
-
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-type RevealProps = {
-  as?: React.ElementType
+type RevealProps<T extends React.ElementType = "div"> = {
+  as?: T
   className?: string
   children: React.ReactNode
   delayMs?: number
 }
 
-export function Reveal({ as: Comp = "div", className, children, delayMs = 0 }: RevealProps) {
-  const ref = React.useRef<HTMLElement | null>(null)
+export function Reveal<T extends React.ElementType = "div">({
+  as,
+  className,
+  children,
+  delayMs = 0,
+}: RevealProps<T>) {
+  const Comp = as || "div"
+
+  // Infer correct ref type for the given element/component
+  const ref = React.useRef<React.ElementRef<T> | null>(null)
   const [show, setShow] = React.useState(false)
 
   React.useEffect(() => {
@@ -35,7 +41,7 @@ export function Reveal({ as: Comp = "div", className, children, delayMs = 0 }: R
 
   return (
     <Comp
-      ref={ref as any}
+      ref={ref} // now correctly typed
       className={cn(
         "transition-all duration-700 ease-out",
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
